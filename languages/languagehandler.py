@@ -64,3 +64,14 @@ class CppHandler(LanguageHandler):
     def execute_batch(self):
         # Execute the language handler
         pass
+
+
+def get_language_handler(language, *args, **kwargs):
+    if language == "python":
+        return PythonHandler(language, *args, **kwargs)
+    elif language == "c":
+        return CHandler(language, *args, **kwargs)
+    elif language == "cpp":
+        return CppHandler(language, *args, **kwargs)
+    else:
+        raise Exception("Language not supported")

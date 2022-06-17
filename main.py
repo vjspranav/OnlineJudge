@@ -1,5 +1,5 @@
-from fastapi import FastAPI, Request, Body
-from languages.languagehandler import PythonHandler, CHandler, CppHandler
+from fastapi import FastAPI, Request
+from languages.languagehandler import get_language_handler
 
 app = FastAPI()
 
@@ -22,10 +22,7 @@ async def language_handler(request: Request):
     output_files = request_json["output_files"]
     user_input = request_json["user_input"]
 
-    if language == "python":
-        handler = PythonHandler(language, input_files, output_files, user_input)
-    elif language == "c":
-        handler = CHandler(language, input_files, output_files, user_input)
+    handler = get_language_handler(language, input_files, output_files, user_input)
 
     handler.execute()
     return {"message": "Executed"}
